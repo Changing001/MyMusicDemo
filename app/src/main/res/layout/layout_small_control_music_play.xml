@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/colorAccent"
+    android:layout_height="wrap_content">
+
+       <com.example.hp.mymusicdemo.CircleImageView
+           android:layout_width="60dp"
+           android:id="@+id/singerpic"
+           android:layout_weight="1"
+           android:src="@drawable/hugh"
+           android:layout_height="60dp" />
+
+    <LinearLayout
+        android:padding="3dp"
+        android:layout_weight="5"
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/songname"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:text="TextView"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/other"
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textAlignment="textEnd" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnplayorpause"
+        android:layout_width="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/playmusic"
+        android:layout_height="40dp"
+         />
+
+    <Button
+        android:id="@+id/songlist"
+        android:background="@drawable/songlist"
+        android:layout_gravity="center"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+         />
+
+</LinearLayout>

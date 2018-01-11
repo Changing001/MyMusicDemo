@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hp.mymusicdemo.activity_mylikesongs">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/myview_title_allmysongs"
+            layout="@layout/layout_controlactivity_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.example.hp.mymusicdemo.class_image_and_text_button_hor
+                android:id="@+id/myview_playcontrol_myallsongs"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:padding="3dp">
+
+            </com.example.hp.mymusicdemo.class_image_and_text_button_hor>
+
+            <com.example.hp.mymusicdemo.class_image_and_text_button_hor
+                android:id="@+id/myview_playcontrol2_myallsongs"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="3dp">
+
+            </com.example.hp.mymusicdemo.class_image_and_text_button_hor>
+
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listview_myallsongs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
