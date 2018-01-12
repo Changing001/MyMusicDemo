@@ -72,7 +72,7 @@ public class service_contorlmusicplay extends Service {
         {
             int_MyOrder =songspos;
             remsongpos= int_MyOrder;
-            bool_IfPlayNewSong=true;//            是否播放新歌
+            bool_IfPlayNewSong=true;//是否播放新歌
         }
         else bool_IfPlayNewSong=false;
 
@@ -92,8 +92,8 @@ public class service_contorlmusicplay extends Service {
         if(int_order !=-99) int_MyOrder = int_order;
 
         int_order=intent.getIntExtra("password_NOTHING",-99);
-        if(int_order!=-99)int_MyOrder=-99;//判断是否是activity开启来的命令，放置activity开启service
-//        时使得播放器反复启动
+        if(int_order!=-99)int_MyOrder=-99;
+        //判断是否是activity开启来的命令，放置activity开启service时使得播放器反复启动
 
 
         return super.onStartCommand(intent, flags, startId);
@@ -136,8 +136,7 @@ public class service_contorlmusicplay extends Service {
                     try {
                         mediaPlayer.stop();
                         mediaPlayer=new MediaPlayer();
-                        remsongpos-=1;
-//                        播放上一首歌防止数据转变为负数，设置成循环
+                        remsongpos-=1;//播放上一首歌防止数据转变为负数，设置成循环
                         if(remsongpos<0)
                         {
                             remsongpos=arrayList_inservice_songsdate.size()-1;

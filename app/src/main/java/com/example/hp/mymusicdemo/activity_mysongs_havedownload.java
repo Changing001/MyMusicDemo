@@ -101,24 +101,6 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
 
             mysong.setTimelong(cursor.getString(cursor.getColumnIndex("_size")));
 
-//测试代码获得专辑图片
-//            Uri selectedAudio = Uri.parse(url);
-//            MediaMetadataRetriever myRetriever = new MediaMetadataRetriever();
-//            myRetriever.setDataSource(context, selectedAudio); // the URI of audio file
-//            byte[] artwork;
-//
-//            artwork = myRetriever.getEmbeddedPicture();
-//
-//            if (artwork != null) {
-//                Bitmap bMap = BitmapFactory.decodeByteArray(artwork, 0, artwork.length);
-//                ivPic.setImageBitmap(bMap);
-//
-//                return bMap;
-//            } else {
-//                ivPic.setImageResource(R.drawable.defult_music);
-//                return BitmapFactory.decodeResource(context.getResources(), R.drawable.defult_music);
-//            }
-//        }
             arrayList_myallsongsdate.add(mysong);
 //            System.out.println("_data = "+cursor.getString(cursor.getColumnIndex("_data")));
 //            System.out.println("_display_name = "+cursor.getString(cursor.getColumnIndex("_display_name")));
@@ -204,8 +186,6 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                             service_contorlmusicplay.class);
                     intent.putExtra("password_SONGPOSTION",position);
                     /////////
-                    intent.putExtra("password_MUSICSIZE",
-                            arrayList_myallsongsdate.get(position).getTimelong());
                     //////////
                     startService(intent);
 
@@ -215,6 +195,10 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                             musicmessage.getTextView_singername());
                     intent2.putExtra("password_SONGNAME",
                             musicmessage.getTextView_songname());
+
+                    intent2.putExtra("password_MUSICTIMELONG",
+                            arrayList_myallsongsdate.get(position).getTimelong());
+
                   //  intent2.putExtra("password_SONGPOTION",position);
                     sendBroadcast(intent2);
 //                    发送广播使得歌曲信息得以记录，但现在看来根本不必要，以后升级吧

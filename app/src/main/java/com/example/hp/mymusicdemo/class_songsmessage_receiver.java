@@ -19,8 +19,9 @@ import java.util.zip.Inflater;
  */
 
 public class class_songsmessage_receiver extends BroadcastReceiver {
-    private String str_songname,str_singername;
-
+    private String str_songname;
+    private String str_singername;
+    private int int_musictimelong;
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -28,6 +29,7 @@ public class class_songsmessage_receiver extends BroadcastReceiver {
 //       获取广播传送的音乐信息
         setStr_singername(intent);
         setStr_songname(intent);
+        setInt_musictimelong(intent);
         Toast.makeText(context, "播放来自"+str_singername+"的"+str_songname, Toast.LENGTH_SHORT).show();
 
 
@@ -35,8 +37,7 @@ public class class_songsmessage_receiver extends BroadcastReceiver {
         SharedPreferences.Editor editor = mySharedPreferences.edit();
         editor.putString("password_SONGNAME", str_songname);
         editor.putString("password_SINGERNAME", str_singername);
-
-
+        editor.putInt("password_MUSICTIMELONG",int_musictimelong);
         editor.commit();
 
       /*  因为广播的生命周期较短所以该用数据存储模式
@@ -58,5 +59,13 @@ public class class_songsmessage_receiver extends BroadcastReceiver {
     public String getStr_singername()
     {
         return str_singername;
+    }
+    public void setInt_musictimelong(Intent intent)
+    {
+        this.int_musictimelong=intent.getIntExtra("password_MUSICTIMELONG",-100);
+    }
+    public int getInt_musictimelong()
+    {
+        return int_musictimelong;
     }
 }

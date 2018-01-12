@@ -75,12 +75,16 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Chronometer
-            android:id="@+id/chronometer3"
-            android:gravity="center"
+        <TextView
+            android:id="@+id/inlayout_retime_left"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="16sp" />
+
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -90,12 +94,16 @@
             android:layout_weight="6" />
 
 
-        <Chronometer
-            android:id="@+id/chronometer2"
-            android:gravity="center"
+        <TextView
+            android:id="@+id/inlayout_retime_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="16sp" />
+
 
     </LinearLayout>
 
