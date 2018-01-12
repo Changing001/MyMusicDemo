@@ -15,8 +15,12 @@ import android.widget.Toast;
 
 public class fragement_mainview extends Fragment {
 
-    class_image_and_text_button spebtn6,spebtn1,spebtn2,spebtn3,spebtn4,spebtn5;
-
+    private class_image_and_text_button spebtn1;
+    private class_image_and_text_button spebtn2;
+    private class_image_and_text_button spebtn3;
+    private class_image_and_text_button spebtn4;
+    private class_image_and_text_button spebtn5;
+    private class_image_and_text_button spebtn6;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {

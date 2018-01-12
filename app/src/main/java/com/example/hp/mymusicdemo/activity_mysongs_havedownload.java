@@ -25,17 +25,15 @@ import java.util.List;
 //已下载的歌曲
 public class activity_mysongs_havedownload extends AppCompatActivity {
 
-    class_image_and_text_button_hor spebtn1,spebtn2;
-    ListView listView_allmysongs;
-    ArrayList<class_songs_all_date> arrayList_myallsongsdate=new ArrayList<>();
-    ArrayList<String>arrayList_allsongspath=new ArrayList<>();
+    private class_image_and_text_button_hor spebtn1,spebtn2;
+    private ListView listView_allmysongs;
+    private ArrayList<class_songs_all_date> arrayList_myallsongsdate=new ArrayList<>();
+    private ArrayList<String>arrayList_allsongspath=new ArrayList<>();
     private Uri mediaUri=MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-//    private Uri mediaUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;//获取音乐文件
-
     private myMusicMessageAdapter myMusicMessageAdapter_myadapter;
     private class_songs_all_date mysong=new class_songs_all_date();
     private static int GIVEDATES=1234567;
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

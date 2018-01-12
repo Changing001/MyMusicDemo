@@ -15,11 +15,11 @@ import java.util.ArrayList;
 //我喜欢的歌曲
 public class activity_mylikesongs extends AppCompatActivity {
 
-    class_image_and_text_button_hor mannagerlikesongs1, mannagerlikesongs2, mannagerlikesongs3;
-    ListView listview_mylikesongs;
-    ArrayList<class_songs_all_date> arrayList_mylikesongs_date = new ArrayList<>();
+    private class_image_and_text_button_hor mannagerlikesongs1, mannagerlikesongs2, mannagerlikesongs3;
+    private ListView listview_mylikesongs;
+    private ArrayList<class_songs_all_date> arrayList_mylikesongs_date = new ArrayList<>();
 
-    MyLikeSongsAdapter myLikeSongsAdapter;
+    private MyLikeSongsAdapter myLikeSongsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,40 +15,31 @@ import android.widget.Toast;
 //大的控制界面
 public class activity_controlmusicplay extends AppCompatActivity {
 
-    private Button
-            btn_playmode,
-            btn_lastsong,
-            btn_next_song,
-            btn_pause,
-            btn_playlist,
-            btn_iflikeit,
-            btn_back;
-
-    private TextView
-    textView_songname,
-    textView_singername;
-    private boolean ifPause=false,
-    ifLikeIt=false;
-
-    private int PlayMode=1,
-            RemPlayMode=1396789;
-//记录本地的播放模式以及转载传输到service的命令数据，数据贼奇怪
-    private static int
-            PAUSEPLAY=12138,
-            CONTINUEPLAY=13145,
-            LASTSONG=66666,
-            NEXTSONG=23333,
-            PLAYRANDOM=1391234,
-            PLAYONELOOP=1392345,
-            PLAYLOOP=1393456,
-            PLAYWITHLIST=1396789;
-
-    private int time;
-//    音乐播放的时间控制
-
-    private Thread thread;
-    //获取时间
-    class_songsmessage_receiver receiver;
+    private Button btn_playmode;
+    private Button btn_lastsong;
+    private Button btn_next_song;
+    private Button btn_pause;
+    private Button btn_playlist;
+    private Button btn_iflikeit;
+    private Button btn_back;
+    private TextView textView_songname;
+    private TextView textView_singername;
+    private boolean ifPause = false;
+    private boolean ifLikeIt = false;
+    private int PlayMode=1;
+    private int   RemPlayMode=1396789;//记录本地的播放模式以及转载传输到service的命令数据，数据贼奇怪
+    private final static int PAUSEPLAY=12138;
+    private final static int CONTINUEPLAY=13145;
+    private final static int  LASTSONG=66666;
+    private final static int  NEXTSONG=23333;
+    private final static int PLAYRANDOM=1391234;
+    private final static int  PLAYONELOOP=1392345;
+    private final static int  PLAYLOOP=1393456;
+    private final static int  PLAYWITHLIST=1396789;
+    private final static int WRONGORDER=-99;//初始化一些命令使得便于操作，目前我大多用的是传数字表示命令
+    private int time;//    音乐播放的时间控制
+    private Thread thread;//获取时间
+    private class_songsmessage_receiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

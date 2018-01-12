@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private int Playtimenum=0;
     private Thread thread;
 
-    String str_songname ;
-    String str_singername;
+    private String str_songname ;
+    private String str_singername;
 
     SharedPreferences sharedPreferences;
     @Override
