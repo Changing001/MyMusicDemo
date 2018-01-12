@@ -219,10 +219,12 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
 
 
             /*注意歌手名字中可能带有括号以及空格，
-但并不绝对（至少我的手机是这样），
-所以如果取出子字符串如果没有这个字符的话会导致错误，
-所以需要事先判断*/
+             但并不绝对（至少我的手机是这样），
+             所以如果取出子字符串如果没有这个字符的话会导致错误，
+             所以需要事先判断*/
 
+
+            //通过算法实现获取歌手的名字，防止特殊崩溃情况，改用全部名称（包括歌曲）
             String remsinger=TheSongMessage.getSinger();
             int rem_,remkuohao;
             rem_=remsinger.indexOf(" ");
