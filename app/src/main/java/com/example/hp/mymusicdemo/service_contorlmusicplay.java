@@ -5,7 +5,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.Toast;
 
@@ -14,44 +13,34 @@ import java.util.ArrayList;
 
 public class service_contorlmusicplay extends Service {
 
-    private ArrayList<String>arrayList_inservice_songsdate=new ArrayList<>();
-    private boolean ifGetDate=false,
-            ifStartPlayMusic=false;
     private MediaPlayer mediaPlayer=new MediaPlayer();
-//    必须要初始化否则老是报错贼坑
+    private ArrayList<String>arrayList_inservice_songsdate=new ArrayList<>();
+    private boolean bool_ifGetDate =false;
+    private boolean bool_ifStartPlayMusic =false;
+    private boolean bool_IfPlayNewSong=false;//    必须要初始化否则老是报错贼坑
+    private boolean bool_IfMediaPlayerIsNew =false;
+    private boolean bool_IfMediaPlayerIsPause=false;
 
+    private final static int PAUSEPLAY=12138;
+    private final static int CONTINUEPLAY=13145;
+    private final static int  LASTSONG=66666;
+    private final static int  NEXTSONG=23333;
+    private final static int PLAYRANDOM=1391234;
+    private final static int  PLAYONELOOP=1392345;
+    private final static int  PLAYLOOP=1393456;
+    private final static int  PLAYWITHLIST=1396789;
+    private final static int WRONGORDER=-99;//初始化一些命令使得便于操作，目前我大多用的是传数字表示命令
 
-    private int music_size;
-
-    private boolean ifMediaPlayerIsNew=false,
-    isIfMediaPlayerIsPause=false;
-    private int
-            songspos=-99,remsongpos;
-//    因为很多重命令都要经过这里，所以需要用一个数记录命令
-    private static int
-            PAUSEPLAY=12138,
-            CONTINUEPLAY=13145,
-            LASTSONG=66666,
-            NEXTSONG=23333,
-            PLAYRANDOM=1391234,
-            PLAYONELOOP=1392345,
-            PLAYLOOP=1393456,
-            PLAYWITHLIST=1396789;
-
-    //    初始化一些命令使得便于操作，目前我大多用的是传数字表示命令
-    private int
-            Pause_order=-99, //给予其初始化数据，若通过相关的名字的命令不是此数则表示触发该命令
-            Last_order=-99,
-            Next_order=-99,
-            Continue_order=-99,
-            PlayMode_order=-99;
-    private int MyOrder=-100,DateOrder=-100;
-
-    private int PlayMode=1;
+    private int int_MyOrder=-99;
+    private int int_DateOrder=-99;
+    private int int_PlayMode =1;
+    private int int_music_size;
+    private int songspos=-99;
+    private int remsongpos=0;//    因为很多重命令都要经过这里，所以需要用一个数记录命令
 
     public service_contorlmusicplay() {
-
     }
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -63,45 +52,49 @@ public class service_contorlmusicplay extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
 
-        music_size=intent.getIntExtra("password_MUSICSIZE",-99);
-        if(music_size!=-99) Toast.makeText(this, "size"+music_size, Toast.LENGTH_SHORT).show();
+        int int_order=0;//记录外部传来的命令，每次只能点击事件发生一次，
+        // 但需要避免其他组件开启service，使用下部的NOTHING命令判断
 
+//        int_music_size =intent.getIntExtra("password_MUSICSIZE",-99);
+//        if(int_music_size !=-99) //歌曲的大小，应该是以毫秒记录
+//            Toast.makeText(this, "size"+ int_music_size, Toast.LENGTH_SHORT).show();
 
-        DateOrder=intent.getIntExtra("password_ifGiveDate",-99);
-        if(DateOrder!=-99&&!ifGetDate)
+        int_DateOrder =intent.getIntExtra("password_ifGiveDate",-99);
+        if(int_DateOrder !=-99&&!bool_ifGetDate)
         {
-            ifGetDate=true;
+            bool_ifGetDate =true;
             arrayList_inservice_songsdate=intent.getStringArrayListExtra("password_ALLSONGPATH");
-
-            SharedPreferences mySharedPreferences = this.getSharedPreferences
-                    ("password_JUDGEMENTIFPUTDATE", Activity.MODE_PRIVATE);
-            SharedPreferences.Editor editor = mySharedPreferences.edit();
-            editor.putInt("password_IFHAVEGIVEDATE",100);
         }
+        
 
         songspos=intent.getIntExtra("password_SONGPOSTION",-99);
         if(songspos!=-99)
         {
-            MyOrder=songspos;
-            remsongpos=MyOrder;
+            int_MyOrder =songspos;
+            remsongpos= int_MyOrder;
+            bool_IfPlayNewSong=true;//            是否播放新歌
         }
+        else bool_IfPlayNewSong=false;
 
-        Pause_order=intent.getIntExtra("password_PAUSEPLAY",-99);
-        if(Pause_order!=-99)MyOrder=Pause_order;
-//一个name只能出现在一个地方否则会出错
+        int_order =intent.getIntExtra("password_PAUSEPLAY",-99);
+        if(int_order !=-99) int_MyOrder = int_order;//一个name只能出现在一个地方否则会出错
 
-        Continue_order=intent.getIntExtra("password_CONTINUEPLAY",-99);
-        if(Continue_order!=-99)MyOrder=Continue_order;
+        int_order=intent.getIntExtra("password_CONTINUEPLAY",-99);
+        if(int_order!=-99) int_MyOrder =int_order;
 
-        Last_order=intent.getIntExtra("password_PLAYLAST",-99);
-        if(Last_order!=-99)MyOrder=Last_order;
+        int_order =intent.getIntExtra("password_PLAYLAST",-99);
+        if(int_order !=-99) int_MyOrder = int_order;
 
-        Next_order=intent.getIntExtra("password_PLAYNEXT",-99);
-        if(Next_order!=-99)MyOrder=Next_order;
+        int_order=intent.getIntExtra("password_PLAYNEXT",-99);
+        if(int_order!=-99) int_MyOrder =int_order;
 
+        int_order =intent.getIntExtra("password_PLAYMODE",-99);
+        if(int_order !=-99) int_MyOrder = int_order;
 
-        PlayMode_order=intent.getIntExtra("password_PLAYMODE",-99);
-        if(PlayMode_order!=-99)MyOrder=PlayMode_order;
+        int_order=intent.getIntExtra("password_NOTHING",-99);
+        if(int_order!=-99)int_MyOrder=-99;//判断是否是activity开启来的命令，放置activity开启service
+//        时使得播放器反复启动
+
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -109,39 +102,35 @@ public class service_contorlmusicplay extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        switch (MyOrder)
+        switch (int_MyOrder)
         {
-            case 12138:
-                if(mediaPlayer.isPlaying()&&ifMediaPlayerIsNew)
+            case PAUSEPLAY:
+                if(mediaPlayer.isPlaying()&& bool_IfMediaPlayerIsNew)
                 {
                     mediaPlayer.pause();
-                    isIfMediaPlayerIsPause=true;
+                    bool_IfMediaPlayerIsPause=true;
                 }
                 break;
-            case 13145:
-                if(ifMediaPlayerIsNew&&ifStartPlayMusic&&!mediaPlayer.isPlaying())
+            case CONTINUEPLAY:
+                if(bool_IfMediaPlayerIsNew && bool_ifStartPlayMusic &&!mediaPlayer.isPlaying())
                 {
                     mediaPlayer.start();
-                    isIfMediaPlayerIsPause=false;
+                    bool_IfMediaPlayerIsPause=false;
                 }
                 break;
-            case 1391234:
-                PlayMode=2;
+            case PLAYRANDOM:
+                int_PlayMode =2;
                 break;
-            case 1392345:
-                PlayMode=3;
+            case PLAYONELOOP:
+                int_PlayMode =3;
                 break;
-            case 1393456:
-                PlayMode=4;
+            case PLAYLOOP:
+                int_PlayMode =4;
                 break;
-            case 1396789:
-                PlayMode=1;
+            case PLAYWITHLIST:
+                int_PlayMode =1;
                 break;
-//            PLAYRANDOM=1391234,
-//                    PLAYONELOOP=1392345,
-//                    PLAYLOOP=1393456,
-//                    PLAYWITHLIST=1396789;
-            case 66666:
+            case LASTSONG:
                 if(mediaPlayer.isPlaying())
                 {
                     try {
@@ -161,7 +150,7 @@ public class service_contorlmusicplay extends Service {
                     }
                 }
                 break;
-            case 23333:
+            case NEXTSONG:
                 if(mediaPlayer.isPlaying())
                 {
                     try {
@@ -181,22 +170,21 @@ public class service_contorlmusicplay extends Service {
                     }
                 }
                 break;
-            case -100:
+            case -99:
                 break;
             default:
                 try {
-                    if(mediaPlayer.isPlaying())mediaPlayer.stop();
+                    if(mediaPlayer.isPlaying()&& bool_IfPlayNewSong)
+                        mediaPlayer.stop();
+                        mediaPlayer=new MediaPlayer();
+                        mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(remsongpos));
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                        bool_IfMediaPlayerIsPause=false;
+                        bool_ifStartPlayMusic =true;
+                        bool_IfMediaPlayerIsNew =true;
 
-                    mediaPlayer=new MediaPlayer();
-                    mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(MyOrder));
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                    isIfMediaPlayerIsPause=false;
-                    ifStartPlayMusic=true;
-                    ifMediaPlayerIsNew=true;
-
-
-                    switch (PlayMode)
+                    switch (int_PlayMode)
                     {
                         case 1:
                            /* if(!isIfMediaPlayerIsPause&&!mediaPlayer.isPlaying())
@@ -220,8 +208,8 @@ public class service_contorlmusicplay extends Service {
                     }
            } catch (IOException e) {
                e.printStackTrace();
-           } break;
-
+           }
+           break;
         }
     }
 }

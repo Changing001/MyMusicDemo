@@ -20,7 +20,7 @@ import java.util.zip.Inflater;
 
 public class class_songsmessage_receiver extends BroadcastReceiver {
     private String str_songname,str_singername;
-    private int PlayTime=0;
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -37,10 +37,6 @@ public class class_songsmessage_receiver extends BroadcastReceiver {
         editor.putString("password_SINGERNAME", str_singername);
 
 
-        PlayTime+=1;
-        editor.putInt("password_PLAYTIME",PlayTime);
-//        记录播放数据，当数据不统一时表示开启新的路径记录
-
         editor.commit();
 
       /*  因为广播的生命周期较短所以该用数据存储模式
@@ -49,12 +45,10 @@ public class class_songsmessage_receiver extends BroadcastReceiver {
         也比较方便使用*/
 
     }
-    public void setStr_songname(Intent intent)
-    {
+    public void setStr_songname(Intent intent) {
         this.str_songname= intent.getStringExtra("password_SONGNAME");
     }
-    public void setStr_singername(Intent intent)
-    {
+    public void setStr_singername(Intent intent) {
         this.str_singername= intent.getStringExtra("password_SINGERNAME");
     }
     public String getStr_songname()
