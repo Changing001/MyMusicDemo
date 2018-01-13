@@ -15,11 +15,13 @@ import java.util.ArrayList;
 //我喜欢的歌曲
 public class activity_mylikesongs extends AppCompatActivity {
 
-    private class_image_and_text_button_hor mannagerlikesongs1, mannagerlikesongs2, mannagerlikesongs3;
+    private class_image_and_text_button_hor mannagerlikesongs1;
+    private class_image_and_text_button_hor mannagerlikesongs2;
+    private class_image_and_text_button_hor mannagerlikesongs3;
     private ListView listview_mylikesongs;
     private ArrayList<class_songs_all_date> arrayList_mylikesongs_date = new ArrayList<>();
-
     private MyLikeSongsAdapter myLikeSongsAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +90,9 @@ public class activity_mylikesongs extends AppCompatActivity {
 
             class_songs_all_date TheSongMessage = (class_songs_all_date) getItem(position);
             CircleImageView singerhead = (CircleImageView) convertView.findViewById(R.id.singerhead);
-            final class_insonglist_message_twotextview musicmessage = (class_insonglist_message_twotextview)
-                    convertView.findViewById(R.id.myView_musicmessage);
+            final class_insonglist_message_twotextview musicmessage =
+                    (class_insonglist_message_twotextview)
+                            convertView.findViewById(R.id.myView_musicmessage);
             musicmessage.setTextView_songname(TheSongMessage.getName());
             musicmessage.setImageView_ifdownload(R.drawable.havedownloadicon2);
             Button button_more = (Button) convertView.findViewById(R.id.btnmoreinlist);

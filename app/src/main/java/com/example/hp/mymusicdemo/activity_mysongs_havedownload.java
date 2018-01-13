@@ -1,6 +1,7 @@
 package com.example.hp.mymusicdemo;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -77,8 +78,7 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
 //经过测试得知每次跳转界面都会初始化所有数据，浪费内存，且导致命令重读，个人认为需要使用数据库存储
     }
 
-    private void setAllKindsDates()
-    {
+    private void setAllKindsDates() {
         for(int i=0;i<arrayList_myallsongsdate.size();i++)
         {
             arrayList_allsongspath.add(arrayList_myallsongsdate.get(i).getPath());
@@ -98,8 +98,7 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
             mysong.setName(cursor.getString(cursor.getColumnIndex("title")));
             mysong.setPath(cursor.getString(cursor.getColumnIndex("_data")));
             mysong.setSinger(cursor.getString(cursor.getColumnIndex("_display_name")));
-
-            mysong.setTimelong(cursor.getString(cursor.getColumnIndex("_size")));
+            mysong.setTimelong(cursor.getString(cursor.getColumnIndex("duration")));
 
             arrayList_myallsongsdate.add(mysong);
 //            System.out.println("_data = "+cursor.getString(cursor.getColumnIndex("_data")));
@@ -145,20 +144,17 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
 
             class_songs_all_date TheSongMessage=(class_songs_all_date)getItem(position);
 
-
             CircleImageView singerhead=(CircleImageView)convertView.findViewById(R.id.singerhead);
 
-            final class_insonglist_message_twotextview musicmessage=(class_insonglist_message_twotextview)
+            final class_insonglist_message_twotextview musicmessage=
+                    (class_insonglist_message_twotextview)
                     convertView.findViewById(R.id.myView_musicmessage);
-
 
             musicmessage.setTextView_songname(TheSongMessage.getName());
 
             musicmessage.setImageView_ifdownload(R.drawable.havedownloadicon2);
 
-
             Button button_more=(Button)convertView.findViewById(R.id.btnmoreinlist);
-
 
             singerhead.setImageResource(R.drawable.hugh);
 
@@ -172,9 +168,29 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                 public void onClick(View view) {
                     AlertDialog alertDialog;
                     new AlertDialog.Builder(activity_mysongs_havedownload.this)
-                            .setTitle("弹出栏")
-                    .setTitle("HAILHYDRa")
+                            .setTitle("您的操作是？")
                    .setIcon(R.drawable.hugh)
+                            .setNegativeButton("删除", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Toast.makeText(activity_mysongs_havedownload.this,
+                                            "删除成功", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("下一首播放", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Toast.makeText(activity_mysongs_havedownload.this,
+                                            "修改成功", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setPositiveButton("添加到我喜欢", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Toast.makeText(activity_mysongs_havedownload.this,
+                                            "添加成功", Toast.LENGTH_SHORT).show();
+                                }
+                            })
                    .show();
                 }
             });
@@ -185,10 +201,8 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                     Intent intent=new Intent(activity_mysongs_havedownload.this,
                             service_contorlmusicplay.class);
                     intent.putExtra("password_SONGPOSTION",position);
-                    /////////
-                    //////////
-                    startService(intent);
 
+                    startService(intent);
 
                     Intent intent2 = new Intent("myReceiver");
                     intent2.putExtra("password_SINGERNAME",

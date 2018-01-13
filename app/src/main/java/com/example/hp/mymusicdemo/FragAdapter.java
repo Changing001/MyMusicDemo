@@ -13,7 +13,6 @@ import java.util.List;
 public class FragAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragments;
-
     public FragAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         // TODO Auto-generated constructor stub

@@ -15,8 +15,11 @@ import android.widget.TextView;
  */
 
 public class class_mainactivity_title extends LinearLayout {
-    private Button btn1,btn2;
-    private TextView textView1,textView2,textView3;
+    private Button btn1;
+    private Button btn2;
+    private TextView textView1;
+    private TextView textView2;
+    private TextView textView3;
     private Intent intent;
     public class_mainactivity_title(Context context) {
         super(context);
