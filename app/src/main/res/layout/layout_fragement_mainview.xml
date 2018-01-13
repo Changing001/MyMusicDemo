@@ -8,16 +8,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
 
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <com.example.hp.mymusicdemo.CircleImageView
-                android:layout_width="match_parent"
                 android:id="@+id/userheadpic"
+                android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@color/colorAccent"
                 android:padding="2dp"
@@ -26,9 +25,9 @@
             <TextView
                 android:id="@+id/username"
                 android:layout_width="match_parent"
-                android:padding="3dp"
-                android:background="@color/colorAccent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="3dp"
                 android:text="——Changing——"
                 android:textAlignment="center"
                 android:textSize="24sp"
@@ -36,39 +35,40 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:src="@drawable/zuanshi"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:src="@drawable/zuanshi" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="2dp">
 
                 <com.example.hp.mymusicdemo.class_image_and_text_button
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bu1">
-                </com.example.hp.mymusicdemo.class_image_and_text_button>
-
-                <com.example.hp.mymusicdemo.class_image_and_text_button
+                    android:id="@+id/bu1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
-                    android:id="@+id/bu2">
-
+                    android:gravity="center">
 
                 </com.example.hp.mymusicdemo.class_image_and_text_button>
 
                 <com.example.hp.mymusicdemo.class_image_and_text_button
+                    android:id="@+id/bu2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
-                    android:id="@+id/bu3">
+                    android:gravity="center">
+
+
+                </com.example.hp.mymusicdemo.class_image_and_text_button>
+
+                <com.example.hp.mymusicdemo.class_image_and_text_button
+                    android:id="@+id/bu3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
 
                 </com.example.hp.mymusicdemo.class_image_and_text_button>
@@ -77,33 +77,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="3dp">
 
                 <com.example.hp.mymusicdemo.class_image_and_text_button
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bu4">
-                </com.example.hp.mymusicdemo.class_image_and_text_button>
-
-                <com.example.hp.mymusicdemo.class_image_and_text_button
+                    android:id="@+id/bu4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
-                    android:id="@+id/bu5">
-
+                    android:gravity="center">
 
                 </com.example.hp.mymusicdemo.class_image_and_text_button>
 
                 <com.example.hp.mymusicdemo.class_image_and_text_button
+                    android:id="@+id/bu5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
-                    android:id="@+id/bu6">
+                    android:gravity="center">
+
+
+                </com.example.hp.mymusicdemo.class_image_and_text_button>
+
+                <com.example.hp.mymusicdemo.class_image_and_text_button
+                    android:id="@+id/bu6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
 
                 </com.example.hp.mymusicdemo.class_image_and_text_button>
@@ -111,6 +112,8 @@
 
 
         </LinearLayout>
+
     </ScrollView>
+
 
 </LinearLayout>
