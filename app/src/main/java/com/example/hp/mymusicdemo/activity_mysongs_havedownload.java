@@ -145,19 +145,15 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
             class_songs_all_date TheSongMessage=(class_songs_all_date)getItem(position);
 
             CircleImageView singerhead=(CircleImageView)convertView.findViewById(R.id.singerhead);
-
             final class_insonglist_message_twotextview musicmessage=
                     (class_insonglist_message_twotextview)
                     convertView.findViewById(R.id.myView_musicmessage);
-
-            musicmessage.setTextView_songname(TheSongMessage.getName());
-
-            musicmessage.setImageView_ifdownload(R.drawable.havedownloadicon2);
-
             Button button_more=(Button)convertView.findViewById(R.id.btnmoreinlist);
 
-            singerhead.setImageResource(R.drawable.hugh);
 
+            musicmessage.setTextView_songname(TheSongMessage.getName());
+            musicmessage.setImageView_ifdownload(R.drawable.havedownloadicon2);
+            singerhead.setImageResource(R.drawable.hugh);
             button_more.setBackgroundResource(R.drawable.moreicon);
 
 //            listview中含有按钮是需要些在适配器中

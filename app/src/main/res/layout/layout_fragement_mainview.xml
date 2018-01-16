@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -110,6 +111,99 @@
                 </com.example.hp.mymusicdemo.class_image_and_text_button>
             </LinearLayout>
 
+
+            <ProgressBar
+                android:padding="5dp"
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+
+            <com.example.hp.mymusicdemo.class_myselftv_inmainview
+                android:id="@+id/myselftv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.example.hp.mymusicdemo.class_myselftv_inmainview>
+            <ProgressBar
+                android:padding="5dp"
+                android:id="@+id/progressBar3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="visible"
+                tools:visibility="visible" />
+            <com.example.hp.mymusicdemo.class_myselftv_inmainview
+                android:id="@+id/myselftv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.example.hp.mymusicdemo.class_myselftv_inmainview>
+            <ProgressBar
+                android:padding="5dp"
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="visible"
+                tools:visibility="visible" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/textview_mysonglist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="我的歌单"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    />
+                <Button
+                    android:id="@+id/btn_addsonglist"
+                    android:layout_width="35dp"
+                    android:layout_gravity="center"
+                    android:layout_height="35dp"
+                    android:background="@drawable/ic_addinsmalllist"
+                    />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    />
+                <Button
+                    android:id="@+id/btn_songmenu"
+                    android:layout_width="35dp"
+                    android:layout_gravity="center"
+                    android:layout_height="35dp"
+                    android:background="@drawable/ic_menu_inmainview"
+                    />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    />
+
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listview_inlayout_inmainview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

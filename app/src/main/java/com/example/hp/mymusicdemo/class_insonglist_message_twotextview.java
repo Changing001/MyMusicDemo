@@ -16,7 +16,8 @@ import java.util.zip.Inflater;
  */
 
 public class class_insonglist_message_twotextview extends LinearLayout {
-    private TextView textView_songname,textView_singername;
+    private TextView textView_songname;
+    private TextView  textView_singername;
     private ImageView imageView_ifdownload;
     public class_insonglist_message_twotextview(Context context) {
         super(context);
