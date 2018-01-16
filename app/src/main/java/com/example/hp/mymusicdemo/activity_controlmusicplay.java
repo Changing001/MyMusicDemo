@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +57,7 @@ public class activity_controlmusicplay extends AppCompatActivity {
         btn_playlist=(Button)findViewById(R.id.btn5);
 
         btn_iflikeit=(Button)findViewById(R.id.btn6);
-        btn_back=(Button)findViewById(R.id.btnback);
+        btn_back=(Button)findViewById(R.id.btn_back);
 
         textView_singername=(TextView)findViewById(R.id.textview_singername);
         textView_songname=(TextView)findViewById(R.id.textview_songname);

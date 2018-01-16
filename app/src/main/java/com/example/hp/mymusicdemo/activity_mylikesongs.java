@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,12 +24,27 @@ public class activity_mylikesongs extends AppCompatActivity {
     private MyLikeSongsAdapter myLikeSongsAdapter;
 
 
+    private TextView textView_title;
+    private Button btn_back;
+    private Button btn_menu;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mylikesongs);
         if (getSupportActionBar() != null)
             getSupportActionBar().hide();
+
+
+        textView_title=(TextView)findViewById(R.id.textView_titletext);
+        textView_title.setText("我喜欢");
+
+        btn_back=(Button)findViewById(R.id.btn_back);
+
+        btn_menu=(Button)findViewById(R.id.btn_menu);
+
+
 
         mannagerlikesongs1 = (class_image_and_text_button_hor) findViewById(R.id.playcontrol);
         mannagerlikesongs1.setImageResource(R.drawable.playmusic);

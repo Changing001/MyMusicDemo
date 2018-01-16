@@ -24,11 +24,11 @@ public class class_controlactivity_title extends LinearLayout {
     public class_controlactivity_title(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        LayoutInflater.from(context).inflate(R.layout.layout_controlactivity_title,this,
+        LayoutInflater.from(context).inflate(R.layout.layout_normal_title,this,
                 true);
-        btn1=(Button)findViewById(R.id.btnback);
-        btn2=(Button)findViewById(R.id.btnmenu);
-        textView=(TextView)findViewById(R.id.textviewtitle);
+        btn1=(Button)findViewById(R.id.btn_back);
+        btn2=(Button)findViewById(R.id.btn_menu);
+        textView=(TextView)findViewById(R.id.textview_title);
 
         textView.setText(title);
     }

@@ -12,35 +12,60 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //已下载的歌曲
 public class activity_mysongs_havedownload extends AppCompatActivity {
 
-    private class_image_and_text_button_hor spebtn1,spebtn2;
-    private ListView listView_allmysongs;
-    private ArrayList<class_songs_all_date> arrayList_myallsongsdate=new ArrayList<>();
-    private ArrayList<String>arrayList_allsongspath=new ArrayList<>();
-    private Uri mediaUri=MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-    private myMusicMessageAdapter myMusicMessageAdapter_myadapter;
-    private class_songs_all_date mysong=new class_songs_all_date();
     private static int GIVEDATES=1234567;
+
     private SharedPreferences sharedPreferences;
+    private Uri mediaUri=MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+
+    private ArrayList<class_songs_all_date> arrayList_myallsongsdate=new ArrayList<>();
+    private class_songs_all_date mysong=new class_songs_all_date();
+    private ArrayList<String>arrayList_allsongspath=new ArrayList<>();
+
+    private myMusicMessageAdapter myMusicMessageAdapter_myadapter;
+
+    private class_image_and_text_button_hor spebtn1;
+    private class_image_and_text_button_hor spebtn2;
+    private ListView listView_allmysongs;
+
+
+    private TextView textview_title;
+    private Button btn_back;
+    private Button btn_menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mysongs_havedownload);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+
+        btn_back=(Button)findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(activity_mysongs_havedownload.this,
+                        "hail HYDRA", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_menu=(Button)findViewById(R.id.btn_menu);
+        btn_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         listView_allmysongs = (ListView) findViewById(R.id.listview_myallsongs);
 
@@ -54,11 +79,9 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
 
         getUriData(mediaUri);//获得音乐文件
 
-        setAllKindsDates();
-//        将数据分配至不同的容器
+        setAllKindsDates();//  将数据分配至不同的容器
 
         myMusicMessageAdapter_myadapter = new myMusicMessageAdapter(arrayList_myallsongsdate);
-/////
         listView_allmysongs.setAdapter(myMusicMessageAdapter_myadapter);
 
 
