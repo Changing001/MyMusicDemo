@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
+
 //已下载的歌曲
 public class activity_mysongs_havedownload extends AppCompatActivity {
 
@@ -43,6 +45,8 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
     private Button btn_back;
     private Button btn_menu;
 
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +58,10 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity_mysongs_havedownload.this,
-                        "hail HYDRA", Toast.LENGTH_SHORT).show();
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.setClass(activity_mysongs_havedownload.this,
+                        MainActivity.class);
+              startActivity(intent);
             }
         });
 
@@ -63,7 +69,8 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
         btn_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(activity_mysongs_havedownload.this,
+                        "显示菜单", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -88,7 +95,7 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
         sharedPreferences=getSharedPreferences("password_JUDGEMENTIFPUTDATE",Activity.MODE_PRIVATE);
 
 
-          Intent intent = new Intent(activity_mysongs_havedownload.this,
+           intent = new Intent(activity_mysongs_havedownload.this,
                   service_contorlmusicplay.class);
           intent.putExtra("password_ifGiveDate",GIVEDATES);
 

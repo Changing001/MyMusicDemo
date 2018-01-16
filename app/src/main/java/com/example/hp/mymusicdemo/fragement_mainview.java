@@ -3,6 +3,7 @@ package com.example.hp.mymusicdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.INotificationSideChannel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 
 /**
  * Created by HP on 2018/1/9.
@@ -33,6 +36,7 @@ public class fragement_mainview extends Fragment {
     private class_myselftv_inmainview myself_two_inmainview;
 
 
+    private Intent intent;
 //    private ListView listView_mysonglist_inmainview;
 //
 //    //private MyAdapter_listview_songlist_inmainview myadapter_songlist;
@@ -54,8 +58,9 @@ public class fragement_mainview extends Fragment {
         spebtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(container.getContext(),activity_mylikesongs.class);
-//                从装载它的容器中找到环境，从而实现跳转
+                intent=new Intent(container.getContext(),activity_mylikesongs.class);
+                //从装载它的容器中找到环境，从而实现跳转
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }
         });
@@ -75,7 +80,8 @@ public class fragement_mainview extends Fragment {
         spebtn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(container.getContext(),activity_mysongs_havedownload.class);
+                 intent=new Intent(container.getContext(),activity_mysongs_havedownload.class);
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);//设置跳转不保存上一个activity
                 startActivity(intent);
             }
         });

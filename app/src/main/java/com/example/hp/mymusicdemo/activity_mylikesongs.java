@@ -29,6 +29,8 @@ public class activity_mylikesongs extends AppCompatActivity {
     private Button btn_menu;
 
 
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,14 @@ public class activity_mylikesongs extends AppCompatActivity {
         textView_title.setText("我喜欢");
 
         btn_back=(Button)findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent=new Intent(activity_mylikesongs.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+            }
+        });
 
         btn_menu=(Button)findViewById(R.id.btn_menu);
 
