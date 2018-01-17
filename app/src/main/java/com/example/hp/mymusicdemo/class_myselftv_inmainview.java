@@ -32,11 +32,15 @@ public class class_myselftv_inmainview extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.layout_item_in1list_inmainview,this,
                 true);
 
+        inlt();
+
+    }
+
+    public void inlt() {
         textView_up=(TextView)findViewById(R.id.textView_listname);
         textView_down=(TextView)findViewById(R.id.textview_more);
         imageView_head=(ImageView)findViewById(R.id.imageView_head);
     }
-
     public void setTextView_up(String text)
     {
         textView_up.setText(text);

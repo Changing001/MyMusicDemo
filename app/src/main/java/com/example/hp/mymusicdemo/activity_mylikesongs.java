@@ -23,11 +23,9 @@ public class activity_mylikesongs extends AppCompatActivity {
     private ArrayList<class_songs_all_date> arrayList_mylikesongs_date = new ArrayList<>();
     private MyLikeSongsAdapter myLikeSongsAdapter;
 
-
     private TextView textView_title;
     private Button btn_back;
     private Button btn_menu;
-
 
     private Intent intent;
 
@@ -35,14 +33,9 @@ public class activity_mylikesongs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mylikesongs);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().hide();
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
+        inlt();
 
-
-        textView_title=(TextView)findViewById(R.id.textView_titletext);
-        textView_title.setText("我喜欢");
-
-        btn_back=(Button)findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,34 +45,27 @@ public class activity_mylikesongs extends AppCompatActivity {
             }
         });
 
-        btn_menu=(Button)findViewById(R.id.btn_menu);
-
-
-
-        mannagerlikesongs1 = (class_image_and_text_button_hor) findViewById(R.id.playcontrol);
-        mannagerlikesongs1.setImageResource(R.drawable.playmusic);
-        mannagerlikesongs1.setTextViewText("全部播放");
-
-        mannagerlikesongs2 = (class_image_and_text_button_hor) findViewById(R.id.playcontro2);
-        mannagerlikesongs2.setImageResource(R.drawable.download);
-        mannagerlikesongs2.setTextViewText("下载");
-
-        mannagerlikesongs3 = (class_image_and_text_button_hor) findViewById(R.id.playcontro3);
-        mannagerlikesongs3.setImageResource(R.drawable.manager);
-        mannagerlikesongs3.setTextViewText("管理");
-
-        listview_mylikesongs = (ListView) findViewById(R.id.listview_mylikesongs);
-
-
-//        从数据库中取出数据加载至界面
-
-
+//  从数据库中取出数据加载至界面
         myLikeSongsAdapter=new MyLikeSongsAdapter(arrayList_mylikesongs_date);
         listview_mylikesongs.setAdapter(myLikeSongsAdapter);
 
-
-//        添加数据，无数据时也测试成功
-
+//添加数据，无数据时也测试成功
+    }
+    public void inlt() {
+        textView_title=(TextView)findViewById(R.id.textView_titletext);
+        textView_title.setText("我喜欢");
+        btn_back=(Button)findViewById(R.id.btn_back);
+        btn_menu=(Button)findViewById(R.id.btn_menu);
+        mannagerlikesongs1 = (class_image_and_text_button_hor) findViewById(R.id.playcontrol);
+        mannagerlikesongs1.setImageResource(R.drawable.playmusic);
+        mannagerlikesongs1.setTextViewText("全部播放");
+        mannagerlikesongs2 = (class_image_and_text_button_hor) findViewById(R.id.playcontro2);
+        mannagerlikesongs2.setImageResource(R.drawable.download);
+        mannagerlikesongs2.setTextViewText("下载");
+        mannagerlikesongs3 = (class_image_and_text_button_hor) findViewById(R.id.playcontro3);
+        mannagerlikesongs3.setImageResource(R.drawable.manager);
+        mannagerlikesongs3.setTextViewText("管理");
+        listview_mylikesongs = (ListView) findViewById(R.id.listview_mylikesongs);
     }
 
     public class MyLikeSongsAdapter extends BaseAdapter {

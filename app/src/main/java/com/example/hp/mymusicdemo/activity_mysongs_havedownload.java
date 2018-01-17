@@ -53,8 +53,9 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
         setContentView(R.layout.activity_mysongs_havedownload);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+        inlt();
 
-        btn_back=(Button)findViewById(R.id.btn_back);
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,8 +65,6 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
               startActivity(intent);
             }
         });
-
-        btn_menu=(Button)findViewById(R.id.btn_menu);
         btn_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,39 +72,33 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                         "显示菜单", Toast.LENGTH_SHORT).show();
             }
         });
-
-        listView_allmysongs = (ListView) findViewById(R.id.listview_myallsongs);
-
-        spebtn1 = (class_image_and_text_button_hor) findViewById(R.id.myview_playcontrol_myallsongs);
-        spebtn1.setImageResource(R.drawable.playmusic);
-        spebtn1.setTextViewText("全部播放");
-
-        spebtn2 = (class_image_and_text_button_hor) findViewById(R.id.myview_playcontrol2_myallsongs);
-        spebtn2.setImageResource(R.drawable.manager);
-        spebtn2.setTextViewText("管理");
-
         getUriData(mediaUri);//获得音乐文件
-
         setAllKindsDates();//  将数据分配至不同的容器
-
         myMusicMessageAdapter_myadapter = new myMusicMessageAdapter(arrayList_myallsongsdate);
         listView_allmysongs.setAdapter(myMusicMessageAdapter_myadapter);
-
-
         sharedPreferences=getSharedPreferences("password_JUDGEMENTIFPUTDATE",Activity.MODE_PRIVATE);
-
-
-           intent = new Intent(activity_mysongs_havedownload.this,
+        intent = new Intent(activity_mysongs_havedownload.this,
                   service_contorlmusicplay.class);
-          intent.putExtra("password_ifGiveDate",GIVEDATES);
-
-          intent.putExtra("password_NOTHING",13141516);
-
-          intent.putStringArrayListExtra("password_ALLSONGPATH", arrayList_allsongspath);
-          startService(intent);
+        intent.putExtra("password_ifGiveDate",GIVEDATES);
+        intent.putExtra("password_NOTHING",13141516);
+        intent.putStringArrayListExtra("password_ALLSONGPATH", arrayList_allsongspath);
+        startService(intent);
 
 
 //经过测试得知每次跳转界面都会初始化所有数据，浪费内存，且导致命令重读，个人认为需要使用数据库存储
+    }
+
+
+    private void inlt(){
+        btn_back=(Button)findViewById(R.id.btn_back);
+        btn_menu=(Button)findViewById(R.id.btn_menu);
+        listView_allmysongs = (ListView) findViewById(R.id.listview_myallsongs);
+        spebtn1 = (class_image_and_text_button_hor) findViewById(R.id.myview_playcontrol_myallsongs);
+        spebtn1.setImageResource(R.drawable.playmusic);
+        spebtn1.setTextViewText("全部播放");
+        spebtn2 = (class_image_and_text_button_hor) findViewById(R.id.myview_playcontrol2_myallsongs);
+        spebtn2.setImageResource(R.drawable.manager);
+        spebtn2.setTextViewText("管理");
     }
 
     private void setAllKindsDates() {

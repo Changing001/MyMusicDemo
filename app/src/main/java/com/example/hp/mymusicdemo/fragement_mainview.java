@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 
 /**
+ * 主界面的fragement
  * Created by HP on 2018/1/9.
  */
 
@@ -29,8 +30,6 @@ public class fragement_mainview extends Fragment {
     private class_image_and_text_button spebtn4;
     private class_image_and_text_button spebtn5;
     private class_image_and_text_button spebtn6;
-
-
 
     private class_myselftv_inmainview myself_one_inmainview;
     private class_myselftv_inmainview myself_two_inmainview;
@@ -50,11 +49,7 @@ public class fragement_mainview extends Fragment {
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View view= inflater.inflate(R.layout.layout_fragement_mainview, container, false);
-
-        spebtn1=(class_image_and_text_button)view.findViewById(R.id.bu1);
-        spebtn1.setImageResource(R.drawable.llike);
-        spebtn1.setTextViewText("我喜欢");
-
+        inlt(view);
         spebtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,19 +59,6 @@ public class fragement_mainview extends Fragment {
                 startActivity(intent);
             }
         });
-
-        spebtn2=(class_image_and_text_button)view.findViewById(R.id.bu2);
-        spebtn2.setImageResource(R.drawable.download);
-        spebtn2.setTextViewText("下载歌曲");
-
-        spebtn3=(class_image_and_text_button)view.findViewById(R.id.bu3);
-        spebtn3.setImageResource(R.drawable.recentplay);
-        spebtn3.setTextViewText("最近播放");
-
-        spebtn4=(class_image_and_text_button)view.findViewById(R.id.bu4);
-        spebtn4.setImageResource(R.drawable.music);
-        spebtn4.setTextViewText("本地歌曲");
-
         spebtn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,32 +67,12 @@ public class fragement_mainview extends Fragment {
                 startActivity(intent);
             }
         });
-
-        spebtn5=(class_image_and_text_button)view.findViewById(R.id.bu5);
-        spebtn5.setImageResource(R.drawable.songlist);
-        spebtn5.setTextViewText("歌单");
-
-        spebtn6=(class_image_and_text_button)view.findViewById(R.id.bu6);
-        spebtn6.setImageResource(R.drawable.moremunu);
-        spebtn6.setTextViewText("更多");
-
-        myself_one_inmainview =(class_myselftv_inmainview)view.findViewById(R.id.myselftv);
-        myself_one_inmainview.setTextView_up("个性电台");
-        myself_one_inmainview.setTextView_down("阿瓦达基金大");
-        myself_one_inmainview.setImageView_head(R.drawable.hugh);
-
-        myself_two_inmainview=(class_myselftv_inmainview)view.findViewById(R.id.myselftv2);
-        myself_two_inmainview.setTextView_up("正在开发");
-        myself_two_inmainview.setTextView_down("我证明他确实正在开发");
-        myself_two_inmainview.setImageView_head(R.drawable.hugh);
         myself_two_inmainview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "hail hydra", Toast.LENGTH_SHORT).show();
             }
         });
-
-
 //        message_test=new class_listitem_message();
 //        message_test.setUp("歌单1");
 //        message_test.setDown("真的是歌单啊");
@@ -131,8 +93,35 @@ public class fragement_mainview extends Fragment {
 //        myadapter_songlist=new MyAdapter_listview_songlist_inmainview(arrayList_songlists_messages);
 //
 //        listView_mysonglist_inmainview.setAdapter(myadapter_songlist);
-
         return view;
+    }
+    public void inlt(View view) {
+        spebtn1=(class_image_and_text_button)view.findViewById(R.id.bu1);
+        spebtn1.setImageResource(R.drawable.llike);
+        spebtn1.setTextViewText("我喜欢");
+        spebtn2=(class_image_and_text_button)view.findViewById(R.id.bu2);
+        spebtn2.setImageResource(R.drawable.download);
+        spebtn2.setTextViewText("下载歌曲");
+        spebtn3=(class_image_and_text_button)view.findViewById(R.id.bu3);
+        spebtn3.setImageResource(R.drawable.recentplay);
+        spebtn3.setTextViewText("最近播放");
+        spebtn4=(class_image_and_text_button)view.findViewById(R.id.bu4);
+        spebtn4.setImageResource(R.drawable.music);
+        spebtn4.setTextViewText("本地歌曲");
+        spebtn5=(class_image_and_text_button)view.findViewById(R.id.bu5);
+        spebtn5.setImageResource(R.drawable.songlist);
+        spebtn5.setTextViewText("歌单");
+        spebtn6=(class_image_and_text_button)view.findViewById(R.id.bu6);
+        spebtn6.setImageResource(R.drawable.moremunu);
+        spebtn6.setTextViewText("更多");
+        myself_one_inmainview =(class_myselftv_inmainview)view.findViewById(R.id.myselftv);
+        myself_one_inmainview.setTextView_up("个性电台");
+        myself_one_inmainview.setTextView_down("emmmmmmmmm,没想好写啥，略略略");
+        myself_one_inmainview.setImageView_head(R.drawable.hugh);
+        myself_two_inmainview=(class_myselftv_inmainview)view.findViewById(R.id.myselftv2);
+        myself_two_inmainview.setTextView_up("正在开发");
+        myself_two_inmainview.setTextView_down("我证明他确实正在开发");
+        myself_two_inmainview.setImageView_head(R.drawable.hugh);
     }
 
 
@@ -140,58 +129,55 @@ public class fragement_mainview extends Fragment {
      * mainview 歌单的适配器，但存在问题，目前猜测是scrollview与listview的兼容问题
      * 记录一下
      */
-  /*  public class MyAdapter_listview_songlist_inmainview extends BaseAdapter
-    {
-        ArrayList<class_listitem_message> messages_copy =new ArrayList<>();
-
-        public MyAdapter_listview_songlist_inmainview(ArrayList<class_listitem_message>messages)
-        {
-            this.messages_copy =messages;
-        }
-        @Override
-        public int getCount() {
-            return messages_copy.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return messages_copy.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null)
-            {
-                convertView = getLayoutInflater()
-                        .inflate(R.layout.layout_item_in2list_inmainview, parent, false);
-            }
-
-            ImageView imageView=(ImageView)convertView.findViewById(R.id.imageView_icon);
-            ImageView imageView1=(ImageView)convertView.findViewById(R.id.imageView_ifdownload);
-            ImageView imageView2=(ImageView)convertView.findViewById(R.id.imageView_more);
-            TextView textView_one=(TextView)convertView.findViewById(R.id.textView_name);
-            TextView textView_two=(TextView)convertView.findViewById(R.id.textview_more);
-
-//            class_songs_all_date TheSongMessage=(class_songs_all_date)getItem(position);
-            class_listitem_message message=(class_listitem_message)getItem(position);
-
-            textView_one.setText(message.getUp());
-            textView_two.setText(message.getDown());
-            imageView.setImageResource(message.getImage());
-            imageView1.setImageResource(message.getImage2());
-            imageView2.setImageResource(message.getImage3());
-
-            return convertView;
-        }
-    }
-*/
-
-
+//    public class MyAdapter_listview_songlist_inmainview extends BaseAdapter
+//    {
+//        ArrayList<class_listitem_message> messages_copy =new ArrayList<>();
+//
+//        public MyAdapter_listview_songlist_inmainview(ArrayList<class_listitem_message>messages)
+//        {
+//            this.messages_copy =messages;
+//        }
+//        @Override
+//        public int getCount() {
+//            return messages_copy.size();
+//        }
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return messages_copy.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            if (convertView == null)
+//            {
+//                convertView = getLayoutInflater()
+//                        .inflate(R.layout.layout_item_in2list_inmainview, parent, false);
+//            }
+//
+//            ImageView imageView=(ImageView)convertView.findViewById(R.id.imageView_icon);
+//            ImageView imageView1=(ImageView)convertView.findViewById(R.id.imageView_ifdownload);
+//            ImageView imageView2=(ImageView)convertView.findViewById(R.id.imageView_more);
+//            TextView textView_one=(TextView)convertView.findViewById(R.id.textView_name);
+//            TextView textView_two=(TextView)convertView.findViewById(R.id.textview_more);
+//
+////            class_songs_all_date TheSongMessage=(class_songs_all_date)getItem(position);
+//            class_listitem_message message=(class_listitem_message)getItem(position);
+//
+//            textView_one.setText(message.getUp());
+//            textView_two.setText(message.getDown());
+//            imageView.setImageResource(message.getImage());
+//            imageView1.setImageResource(message.getImage2());
+//            imageView2.setImageResource(message.getImage3());
+//
+//            return convertView;
+//        }
+//    }
 
 }
 

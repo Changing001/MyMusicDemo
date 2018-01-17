@@ -60,8 +60,7 @@ public class class_songsmessage_receiver extends BroadcastReceiver {
     {
         return str_singername;
     }
-    public void setInt_musictimelong(Intent intent)
-    {
+    public void setInt_musictimelong(Intent intent) {
         this.int_musictimelong=intent.getIntExtra("password_MUSICTIMELONG",-100);
     }
     public int getInt_musictimelong()

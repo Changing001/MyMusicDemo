@@ -27,28 +27,31 @@ public class class_insonglist_message_twotextview extends LinearLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.layout_insonglist_message, this,
                 true);
+      inlt();
+    }
+
+    public void inlt() {
         textView_songname=(TextView)findViewById(R.id.songname);
         textView_singername=(TextView)findViewById(R.id.singername);
         imageView_ifdownload=(ImageView) findViewById(R.id.ifdownload);
     }
 
-   void setTextView_songname(String songname)
+    public  void setTextView_songname(String songname)
    {
        textView_songname.setText(songname);
    }
-   void setTextView_singername(String singername)
-   {
+    public void setTextView_singername(String singername) {
        textView_singername.setText(singername);
    }
-   void setImageView_ifdownload(int id)
+    public void setImageView_ifdownload(int id)
    {
        imageView_ifdownload.setImageResource(id);
    }
-   String getTextView_songname()
+    public  String getTextView_songname()
    {
        return textView_songname.getText().toString();
    }
-   String getTextView_singername()
+    public String getTextView_singername()
    {
        return textView_singername.getText().toString();
    }

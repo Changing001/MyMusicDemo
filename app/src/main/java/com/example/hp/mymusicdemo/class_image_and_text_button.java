@@ -25,6 +25,10 @@ public class class_image_and_text_button extends LinearLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.layout_image_and_text_button, this,
                 true);
+      inlt();
+    }
+
+    public void inlt() {
         iv = (ImageView) findViewById(R.id.iv);
         tv = (TextView) findViewById(R.id.te);
     }
@@ -37,23 +41,14 @@ public class class_image_and_text_button extends LinearLayout {
         tv.setText(text);
     }
 
-    /**
-     * @param resId
-     */
     public void setImageResource(int resId) {
         iv.setImageResource(resId);
     }
 
-    /**
-     * @param text
-     */
     public void setTextViewText(String text) {
         tv.setText(text);
     }
 
-    /**
-     * @param color
-     */
     public void setTextColor(int color) {
         tv.setTextColor(color);
     }

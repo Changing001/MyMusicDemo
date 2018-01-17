@@ -30,12 +30,8 @@ public class class_mainactivity_title extends LinearLayout {
 //        LayoutInflater.from(context).inflate(R.layout.layout_control_musicplay_title,this,
 //                true);
         LayoutInflater.from(context).inflate(R.layout.layout_mainactivity_title,this,true);
-        textView1=(TextView)findViewById(R.id.my);
-        textView2=(TextView)findViewById(R.id.songlist);
-        textView3=(TextView)findViewById(R.id.found);
-        btn1=(Button)findViewById(R.id.menu);
-        btn2=(Button)findViewById(R.id.more);
 
+        inlt();
         btn2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +39,14 @@ public class class_mainactivity_title extends LinearLayout {
             }
         });
     }
-    void getIntent(Intent intent)
+    public void inlt() {
+        textView1=(TextView)findViewById(R.id.my);
+        textView2=(TextView)findViewById(R.id.songlist);
+        textView3=(TextView)findViewById(R.id.found);
+        btn1=(Button)findViewById(R.id.menu);
+        btn2=(Button)findViewById(R.id.more);
+    }
+    public void getIntent(Intent intent)
     {
         this.intent=intent;
     }

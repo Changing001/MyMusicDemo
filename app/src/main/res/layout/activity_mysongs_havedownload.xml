@@ -67,7 +67,6 @@
 
             </com.example.hp.mymusicdemo.class_image_and_text_button_hor>
 
-
         </LinearLayout>
 
         <ListView
@@ -75,7 +74,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-
-
 
 </android.support.constraint.ConstraintLayout>

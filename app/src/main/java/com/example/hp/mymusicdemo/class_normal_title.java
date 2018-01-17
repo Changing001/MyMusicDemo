@@ -29,9 +29,7 @@ public class class_normal_title extends LinearLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.layout_normal_title,
                 this,true);
-        textView_titletext=(TextView)findViewById(R.id.textView_titletext);
-        btn_back=(Button)findViewById(R.id.btn_back);
-        btn_menu=(Button)findViewById(R.id.btn_menu);
+      inlt();
 
         btn_back.setOnClickListener(new OnClickListener() {
             @Override
@@ -46,6 +44,11 @@ public class class_normal_title extends LinearLayout {
         this.intent=intent;
     }
 
+    public void inlt() {
+        textView_titletext=(TextView)findViewById(R.id.textView_titletext);
+        btn_back=(Button)findViewById(R.id.btn_back);
+        btn_menu=(Button)findViewById(R.id.btn_menu);
+    }
     public void setTextView_titletext(String text)
     {
         textView_titletext.setText(text);

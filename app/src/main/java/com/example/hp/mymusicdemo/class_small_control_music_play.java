@@ -36,13 +36,16 @@ public class class_small_control_music_play extends LinearLayout {
 
         LayoutInflater.from(context).inflate(R.layout.layout_small_control_music_play, this,
                 true);
+       inlt();
+    }
+
+    public void inlt() {
         singerpic = (CircleImageView) findViewById(R.id.singerpic);
         songname = (TextView) findViewById(R.id.songname);
         others=(TextView)findViewById(R.id.other);
         btnplayorpause=(Button)findViewById(R.id.btnplayorpause);
         btnsonglist=(Button)findViewById(R.id.songlist);
     }
-
     public void setSingerpic(int picid)
     {
         singerpic.setImageResource(picid);
