@@ -223,6 +223,8 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
 
                     startService(intent);
 
+
+
                     Intent intent2 = new Intent("myReceiver");
                     intent2.putExtra("password_SINGERNAME",
                             musicmessage.getTextView_singername());
@@ -232,9 +234,25 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                     intent2.putExtra("password_MUSICTIMELONG",
                             arrayList_myallsongsdate.get(position).getTimelong());
 
+
+
+
+                    intent2.putExtra("password_SONGPOSFORCONTROL",position);
+
+
+
                   //  intent2.putExtra("password_SONGPOTION",position);
                     sendBroadcast(intent2);
 //                    发送广播使得歌曲信息得以记录，但现在看来根本不必要，以后升级吧
+
+
+
+
+
+
+
+
+
 
                 }
             });

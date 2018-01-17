@@ -35,20 +35,21 @@ public class MainActivity extends AppCompatActivity {
 
         mytitle.getIntent(new Intent(MainActivity.this,activity_mylikesongs.class));
 
-
         List<Fragment> fragments=new ArrayList<Fragment>();  //构造翻页适配器
         fragments.add(new fragement_mainview());
         fragments.add(new fragement_musiccage());
         fragments.add(new fragement_found());
         FragAdapter adapter = new FragAdapter(getSupportFragmentManager(), fragments);
-
         vp.setAdapter(adapter); //设定适配器
-        //小的控制界面也需要得到歌曲的数据
+
+
+        //小的控制界面也需要得到歌曲的数据//从存储数据中取出相关数据，用来使用
+//        目前没有获得数据
         sharedPreferences = getSharedPreferences("password_PUTDATE", Activity.MODE_PRIVATE);
         str_songname = sharedPreferences.getString("password_SONGNAME", "wrong");
         str_singername = sharedPreferences.getString("password_SINGERNAME", "wrong");
 
-//        从存储数据中取出相关数据，用来使用
+
 
         smallcontrol.setSongname(str_songname);
         smallcontrol.setOthers(str_singername);

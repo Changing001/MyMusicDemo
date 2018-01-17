@@ -1,6 +1,11 @@
 package com.example.hp.mymusicdemo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,7 +26,7 @@ public class activity_mylikesongs extends AppCompatActivity {
     private class_image_and_text_button_hor mannagerlikesongs2;
     private class_image_and_text_button_hor mannagerlikesongs3;
     private ListView listview_mylikesongs;
-    private ArrayList<class_songs_all_date> arrayList_mylikesongs_date = new ArrayList<>();
+
     private MyLikeSongsAdapter myLikeSongsAdapter;
 
     private TextView textView_title;
@@ -29,12 +35,64 @@ public class activity_mylikesongs extends AppCompatActivity {
 
     private Intent intent;
 
+    private ArrayList<class_songs_all_date> arrayList_mylikesongs_date = new ArrayList<>();
+    private ArrayList<class_songs_all_date>arrayList_songdate=new ArrayList<>();
+
+
+
+    private class_songs_all_date mysong=new class_songs_all_date();
+    private Uri mediaUri= MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+
+
+
+    private Context mContext;
+    private SQLiteDatabase db;//    数据库对象
+
+    private MyDBOpenHelper myDBHelper;
+
+    private StringBuilder sb;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mylikesongs);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
         inlt();
+        getUriData(mediaUri);
+
+
+        mContext=activity_mylikesongs.this;
+        myDBHelper = new MyDBOpenHelper(mContext, "my.db", null, 1);
+        db = myDBHelper.getWritableDatabase();
+
+
+        sb = new StringBuilder();
+        Cursor cursor = db.query("person", null, null,
+                null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+
+                int pid = cursor.getInt(cursor.getColumnIndex("personid"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                sb.append("id：" + pid + "：" + name + "\n");
+
+                int songpos = cursor.getInt(cursor.getColumnIndex("name"));
+//                添加我喜欢列表到本地
+               arrayList_mylikesongs_date.add(arrayList_songdate.get(songpos));
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        Toast.makeText(mContext, sb.toString(), Toast.LENGTH_SHORT).show();
+  //   Toast.makeText(mContext, "尺寸"+arrayList_mylikesongs_date.size(), Toast.LENGTH_SHORT).show();
+
+//  从数据库中取出数据加载至界面//添加数据，无数据时也测试成功
+        myLikeSongsAdapter=new MyLikeSongsAdapter(arrayList_mylikesongs_date);
+        listview_mylikesongs.setAdapter(myLikeSongsAdapter);
+
+
+
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,11 +103,6 @@ public class activity_mylikesongs extends AppCompatActivity {
             }
         });
 
-//  从数据库中取出数据加载至界面
-        myLikeSongsAdapter=new MyLikeSongsAdapter(arrayList_mylikesongs_date);
-        listview_mylikesongs.setAdapter(myLikeSongsAdapter);
-
-//添加数据，无数据时也测试成功
     }
     public void inlt() {
         textView_title=(TextView)findViewById(R.id.textView_titletext);
@@ -66,6 +119,31 @@ public class activity_mylikesongs extends AppCompatActivity {
         mannagerlikesongs3.setImageResource(R.drawable.manager);
         mannagerlikesongs3.setTextViewText("管理");
         listview_mylikesongs = (ListView) findViewById(R.id.listview_mylikesongs);
+    }
+
+    private void getUriData(Uri uri){
+
+        arrayList_songdate=new ArrayList<>();
+
+        String[] projection = {"_data","_display_name","_size","mime_type","title","duration"};
+        Cursor cursor = getContentResolver().query(uri, projection, null,
+                null, null);
+        cursor.moveToFirst();
+        do {
+            mysong=new class_songs_all_date();
+            mysong.setName(cursor.getString(cursor.getColumnIndex("title")));
+            mysong.setPath(cursor.getString(cursor.getColumnIndex("_data")));
+            mysong.setSinger(cursor.getString(cursor.getColumnIndex("_display_name")));
+            mysong.setTimelong(cursor.getString(cursor.getColumnIndex("duration")));
+
+            arrayList_songdate.add(mysong);
+//            System.out.println("_data = "+cursor.getString(cursor.getColumnIndex("_data")));
+//            System.out.println("_display_name = "+cursor.getString(cursor.getColumnIndex("_display_name")));
+//            System.out.println("_size = "+cursor.getString(cursor.getColumnIndex("_size")));
+//            System.out.println("mime_type = "+cursor.getString(cursor.getColumnIndex("mime_type")));
+//            System.out.println("title = "+cursor.getString(cursor.getColumnIndex("title")));
+//            System.out.println("duration = "+cursor.getString(cursor.getColumnIndex("duration")));
+        } while (cursor.moveToNext());
     }
 
     public class MyLikeSongsAdapter extends BaseAdapter {
