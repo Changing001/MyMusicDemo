@@ -1,10 +1,13 @@
 package com.example.hp.mymusicdemo;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -47,11 +50,23 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
 
     private Intent intent;
 
+
+
+    private SQLiteDatabase db;  //    数据库对象
+    private MyDBOpenHelper myDBHelper;
+    private StringBuilder sb;
+
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mysongs_havedownload);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
+
+        mContext=activity_mysongs_havedownload.this;
+        myDBHelper = new MyDBOpenHelper(mContext, "my.db", null, 1);//测绘数据库
+
 
         inlt();
 
@@ -208,6 +223,26 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Toast.makeText(activity_mysongs_havedownload.this,
                                             "添加成功", Toast.LENGTH_SHORT).show();
+
+
+
+
+                                    db = myDBHelper.getWritableDatabase();
+                                    ContentValues values1 = new ContentValues();
+                                    values1.put("name", position);//name指的是内容
+                                    db.insert("person", null, values1);
+
+
+
+
+
+
+
+
+
+
+
+
                                 }
                             })
                    .show();

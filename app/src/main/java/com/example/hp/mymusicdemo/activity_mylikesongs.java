@@ -1,6 +1,7 @@
 package com.example.hp.mymusicdemo;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -53,18 +54,22 @@ public class activity_mylikesongs extends AppCompatActivity {
     private StringBuilder sb;
 
 
+    private ArrayList arrayList_mylikesongs_num=new ArrayList();//存储我喜欢的歌曲的下标容器
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mylikesongs);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
+
+
         inlt();
         getUriData(mediaUri);
-
-
         mContext=activity_mylikesongs.this;
         myDBHelper = new MyDBOpenHelper(mContext, "my.db", null, 1);
-        db = myDBHelper.getWritableDatabase();
+        db = myDBHelper.getWritableDatabase();//获取可操作性的数据库文件
+        arrayList_mylikesongs_date=new ArrayList<>();
+
 
 
         sb = new StringBuilder();
@@ -79,13 +84,18 @@ public class activity_mylikesongs extends AppCompatActivity {
 
                 int songpos = cursor.getInt(cursor.getColumnIndex("name"));
 //                添加我喜欢列表到本地
+
+
+                /**
+                 * 从所有音乐文件中获取喜欢列表，以及从自己的数据库中获取下标列表以备用
+                 */
+                arrayList_mylikesongs_num.add(songpos);
                arrayList_mylikesongs_date.add(arrayList_songdate.get(songpos));
             }
             while (cursor.moveToNext());
         }
         cursor.close();
         Toast.makeText(mContext, sb.toString(), Toast.LENGTH_SHORT).show();
-  //   Toast.makeText(mContext, "尺寸"+arrayList_mylikesongs_date.size(), Toast.LENGTH_SHORT).show();
 
 //  从数据库中取出数据加载至界面//添加数据，无数据时也测试成功
         myLikeSongsAdapter=new MyLikeSongsAdapter(arrayList_mylikesongs_date);
@@ -102,7 +112,6 @@ public class activity_mylikesongs extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
     public void inlt() {
         textView_title=(TextView)findViewById(R.id.textView_titletext);
@@ -196,8 +205,50 @@ public class activity_mylikesongs extends AppCompatActivity {
                 public void onClick(View view) {
                     AlertDialog alertDialog;
                     new AlertDialog.Builder(activity_mylikesongs.this)
-                            .setTitle("弹出栏")
-                            .setTitle("test测试")
+                            .setTitle("您的操作是？")
+                          .setPositiveButton("从我喜欢中移除",
+                                  new DialogInterface.OnClickListener() {
+                              @Override
+                              public void onClick(DialogInterface dialogInterface, int i) {
+
+                                  /**
+                                   * 注意在listview中的position与歌曲列表下标不一样，
+                                   * 若是混淆会导致数据库操作无效
+                                   * 所以从存储进入在另一个界面再次取出实现
+                                   */
+                                  String str=String.valueOf( arrayList_mylikesongs_num.get(position));
+                                  db = myDBHelper.getWritableDatabase(); //参数依次是表名，以及where条件与约束
+                                  db.delete("person", "name = ?",
+                                          new String[]{str});
+
+
+                                  sb = new StringBuilder();
+                                  Cursor cursor = db.query("person", null, null,
+                                          null, null, null, null);
+                                  if (cursor.moveToFirst()) {
+                                      do {
+                                          int pid = cursor.getInt(cursor.getColumnIndex("personid"));
+                                          String name = cursor.getString(cursor.getColumnIndex("name"));
+                                          sb.append("id：" + pid + "：" + name + "\n");
+
+                                          int songpos = cursor.getInt(cursor.getColumnIndex("name"));
+//                添加我喜欢列表到本地
+                                          arrayList_mylikesongs_date.add(arrayList_songdate.get(songpos));
+                                      }
+                                      while (cursor.moveToNext());
+                                  }
+                                  cursor.close();
+                                  Toast.makeText(mContext, sb.toString(), Toast.LENGTH_SHORT).show();
+
+                                  Toast.makeText(mContext, "移除成功", Toast.LENGTH_SHORT).show();
+                              }
+                          })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            })
                             .setIcon(R.drawable.hugh)
                             .show();
                 }
@@ -210,11 +261,8 @@ public class activity_mylikesongs extends AppCompatActivity {
                             service_contorlmusicplay.class);
                     intent.putExtra("password_SONGPOSTION", position);
 
-
-                    /////////
                     intent.putExtra("password_MUSICSIZE",
                             songlist.get(position).getTimelong());
-                    //////////
 
                     startService(intent);
 
@@ -223,11 +271,9 @@ public class activity_mylikesongs extends AppCompatActivity {
                             musicmessage.getTextView_singername());
                     intent2.putExtra("password_SONGNAME",
                             musicmessage.getTextView_songname());
-
 //       期望实现存储取出得出数据
-
-
 //                    发送广播使得歌曲信息得以记录，但现在看来根本不必要，以后升级吧
+
                 }
             });
 
@@ -243,11 +289,15 @@ public class activity_mylikesongs extends AppCompatActivity {
 //            System.out.println(str.substring(str.lastIndexOf(" ") + 1));提取子字符串用于歌手名字
 
 
-            /*注意歌手名字中可能带有括号以及空格，
-但并不绝对（至少我的手机是这样），
-所以如果取出子字符串如果没有这个字符的话会导致错误，
-所以需要事先判断*/
 
+
+            /**注意歌手名字中可能带有括号以及空格，
+             * 但并不绝对（至少我的手机是这样），
+             *所以如果取出子字符串如果没有这个字符的话会导致错误，
+             *所以需要事先判断
+             *
+             * 小算法实现取出歌手名字
+             */
             String remsinger = TheSongMessage.getSinger();
             int rem_, remkuohao;
             rem_ = remsinger.indexOf(" ");
@@ -255,11 +305,10 @@ public class activity_mylikesongs extends AppCompatActivity {
             int min = rem_ < remkuohao ? rem_ : remkuohao;
             if (min > 0) {
                 musicmessage.setTextView_singername(TheSongMessage.getSinger().substring(0, min));
-//                textView_singername.setText(TheSongMessage.getSinger().substring(0,min));
             } else {
                 musicmessage.setTextView_singername(TheSongMessage.getSinger());
-                // textView_singername.setText(TheSongMessage.getSinger());
             }
+
             return convertView;
         }
     }

@@ -119,13 +119,6 @@ public class activity_controlmusicplay extends AppCompatActivity {
      /*   从广播中获取到歌曲信息从而实现动态变化，随着歌曲播放而实现
                 注意广播需要添加权限设置，还有在权限设置中声明*/
 
-
-     setmusictime(songtime);
-     String str =String.valueOf(int_musictime_minute);
-     textview_remtime_right.setText(str);
-
-
-
      btn_back.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
@@ -142,6 +135,8 @@ public class activity_controlmusicplay extends AppCompatActivity {
                     btn_iflikeit.setBackgroundResource(R.drawable.likeit);
                     Toast.makeText(activity_controlmusicplay.this,
                             "已经添加到我喜欢", Toast.LENGTH_SHORT).show();
+
+
                     arrayList_songposnum.add(int_songpos);
 
                     /**
@@ -149,7 +144,15 @@ public class activity_controlmusicplay extends AppCompatActivity {
                      */
                     db = myDBHelper.getWritableDatabase();
                     ContentValues values1 = new ContentValues();
-                    values1.put("name", int_songpos);//name指的是内容
+
+
+
+
+
+                    String str_songpos=String.valueOf(int_songpos);
+
+                    values1.put("name", str_songpos);//name指的是内容
+
                     db.insert("person", null, values1);
                     /**
                      * 准备添加至数据库，记录
@@ -162,15 +165,21 @@ public class activity_controlmusicplay extends AppCompatActivity {
                     Toast.makeText(activity_controlmusicplay.this,
                             "已从我喜欢中移除", Toast.LENGTH_SHORT).show();
 
-                    int pos=arrayList_songposnum.size()-1;
-                    arrayList_songposnum.remove(pos);    //标签列表我喜欢的歌单
 
-                    db = myDBHelper.getWritableDatabase(); //参数依次是表名，以及where条件与约束
-                    db.delete("person", "personid = ?", new String[]{"18"});
+
+                    for(int i=0;i<arrayList_songposnum.size();i++)
+                    {
+                        if(arrayList_songposnum.get(i).equals(int_songpos))
+                        {
+                            arrayList_songposnum.remove(i);
+                        }
+                    }
+                    db = myDBHelper.getWritableDatabase(); //获取蝌操作的数据库文件
+                    String str_songpos2=String.valueOf(int_songpos);
+                    db.delete("person","name = ?",new String[]{str_songpos2});
                 }
             }
         });
-
 
         btn_playmode.setOnClickListener(new View.OnClickListener() {
             @Override
