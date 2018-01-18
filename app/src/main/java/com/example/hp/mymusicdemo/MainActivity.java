@@ -45,12 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         //小的控制界面也需要得到歌曲的数据//从存储数据中取出相关数据，用来使用
 //        目前没有获得数据
+
+
         sharedPreferences = getSharedPreferences("password_PUTDATE", Activity.MODE_PRIVATE);
         str_songname = sharedPreferences.getString("password_SONGNAME", "wrong");
         str_singername = sharedPreferences.getString("password_SINGERNAME", "wrong");
-
-
-
         smallcontrol.setSongname(str_songname);
         smallcontrol.setOthers(str_singername);
         smallcontrol.setSingerpic(R.drawable.hugh);

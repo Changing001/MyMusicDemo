@@ -243,6 +243,11 @@ public class activity_controlmusicplay extends AppCompatActivity {
                 }
             }
         });
+
+        /**
+         * 上一首下一首通过数据库中列表实现信息改变
+         * 并且算法切换的实现必须与service中相对应，否则会出bug
+         */
         btn_lastsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,6 +255,12 @@ public class activity_controlmusicplay extends AppCompatActivity {
                         service_contorlmusicplay.class);
                 intent.putExtra("password_PLAYLAST",LASTSONG);
                 startService(intent);
+
+
+                int_songpos-=1;
+                if(int_songpos<0)int_songpos=arrayList_songdate.size()-1;
+                textView_songname.setText(arrayList_songdate.get(int_songpos).getName());
+                textView_singername.setText(arrayList_songdate.get(int_songpos).getSinger());
             }
         });
         btn_next_song.setOnClickListener(new View.OnClickListener() {
@@ -259,6 +270,11 @@ public class activity_controlmusicplay extends AppCompatActivity {
                         service_contorlmusicplay.class);
                 intent.putExtra("password_PLAYNEXT",NEXTSONG);
                 startService(intent);
+
+                int_songpos+=1;
+                if(int_songpos>=arrayList_songdate.size())int_songpos=0;
+                textView_songname.setText(arrayList_songdate.get(int_songpos).getName());
+                textView_singername.setText(arrayList_songdate.get(int_songpos).getSinger());
             }
         });
     }
