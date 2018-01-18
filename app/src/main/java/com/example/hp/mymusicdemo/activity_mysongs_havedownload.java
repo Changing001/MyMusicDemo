@@ -179,6 +179,7 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                 convertView = getLayoutInflater()
                         .inflate(R.layout.layout_musiclist_messages, parent, false);
             }
+//获取小界面 的布局文件实现适配器使用
 
             class_songs_all_date TheSongMessage=(class_songs_all_date)getItem(position);
 
@@ -231,16 +232,6 @@ public class activity_mysongs_havedownload extends AppCompatActivity {
                                     ContentValues values1 = new ContentValues();
                                     values1.put("name", position);//name指的是内容
                                     db.insert("person", null, values1);
-
-
-
-
-
-
-
-
-
-
 
 
                                 }

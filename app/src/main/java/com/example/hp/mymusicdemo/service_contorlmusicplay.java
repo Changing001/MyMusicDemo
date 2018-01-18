@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.os.Message;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class service_contorlmusicplay extends Service {
 
@@ -37,6 +39,9 @@ public class service_contorlmusicplay extends Service {
     private int int_music_size;
     private int songspos=-99;
     private int remsongpos=0;//    因为很多重命令都要经过这里，所以需要用一个数记录命令
+
+    private Thread thread;
+
 
     public service_contorlmusicplay() {
     }
@@ -102,90 +107,97 @@ public class service_contorlmusicplay extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        switch (int_MyOrder)
-        {
-            case PAUSEPLAY:
-                if(mediaPlayer.isPlaying()&& bool_IfMediaPlayerIsNew)
-                {
-                    mediaPlayer.pause();
-                    bool_IfMediaPlayerIsPause=true;
-                }
-                break;
-            case CONTINUEPLAY:
-                if(bool_IfMediaPlayerIsNew && bool_ifStartPlayMusic &&!mediaPlayer.isPlaying())
-                {
-                    mediaPlayer.start();
-                    bool_IfMediaPlayerIsPause=false;
-                }
-                break;
-            case PLAYRANDOM:
-                int_PlayMode =2;
-                break;
-            case PLAYONELOOP:
-                int_PlayMode =3;
-                break;
-            case PLAYLOOP:
-                int_PlayMode =4;
-                break;
-            case PLAYWITHLIST:
-                int_PlayMode =1;
-                break;
-            case LASTSONG:
-                if(mediaPlayer.isPlaying())
-                {
-                    try {
-                        mediaPlayer.stop();
-                        mediaPlayer=new MediaPlayer();
-                        remsongpos-=1;//播放上一首歌防止数据转变为负数，设置成循环
-                        if(remsongpos<0)
-                        {
-                            remsongpos=arrayList_inservice_songsdate.size()-1;
-                        }
-                        mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(remsongpos));
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            case NEXTSONG:
-                if(mediaPlayer.isPlaying())
-                {
-                    try {
-                        mediaPlayer.stop();
-                        mediaPlayer=new MediaPlayer();
-                        remsongpos+=1;
-//                        播放下一首歌防止越界
-                        if(remsongpos>arrayList_inservice_songsdate.size()-1)
-                        {
-                            remsongpos=0;
-                        }
-                        mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(remsongpos));
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            case -99:
-                break;
-            default:
-                try {
-                    if(mediaPlayer.isPlaying()&& bool_IfPlayNewSong)
-                        mediaPlayer.stop();
-                        mediaPlayer=new MediaPlayer();
-                        mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(remsongpos));
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                        bool_IfMediaPlayerIsPause=false;
-                        bool_ifStartPlayMusic =true;
-                        bool_IfMediaPlayerIsNew =true;
 
-                    switch (int_PlayMode)
-                    {
-                        case 1:
+
+        thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ///////////////////////
+
+                switch (int_MyOrder)
+                {
+                    case PAUSEPLAY:
+                        if(mediaPlayer.isPlaying()&& bool_IfMediaPlayerIsNew)
+                        {
+                            mediaPlayer.pause();
+                            bool_IfMediaPlayerIsPause=true;
+                        }
+                        break;
+                    case CONTINUEPLAY:
+                        if(bool_IfMediaPlayerIsNew && bool_ifStartPlayMusic &&!mediaPlayer.isPlaying())
+                        {
+                            mediaPlayer.start();
+                            bool_IfMediaPlayerIsPause=false;
+                        }
+                        break;
+                    case PLAYRANDOM:
+                        int_PlayMode =2;
+                        break;
+                    case PLAYONELOOP:
+                        int_PlayMode =3;
+                        break;
+                    case PLAYLOOP:
+                        int_PlayMode =4;
+                        break;
+                    case PLAYWITHLIST:
+                        int_PlayMode =1;
+                        break;
+                    case LASTSONG:
+                        if(mediaPlayer.isPlaying())
+                        {
+                            try {
+                                mediaPlayer.stop();
+                                mediaPlayer=new MediaPlayer();
+                                remsongpos-=1;//播放上一首歌防止数据转变为负数，设置成循环
+                                if(remsongpos<0)
+                                {
+                                    remsongpos=arrayList_inservice_songsdate.size()-1;
+                                }
+                                mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(remsongpos));
+                                mediaPlayer.prepare();
+                                mediaPlayer.start();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        break;
+                    case NEXTSONG:
+                        if(mediaPlayer.isPlaying())
+                        {
+                            try {
+                                mediaPlayer.stop();
+                                mediaPlayer=new MediaPlayer();
+                                remsongpos+=1;
+//                        播放下一首歌防止越界
+                                if(remsongpos>arrayList_inservice_songsdate.size()-1)
+                                {
+                                    remsongpos=0;
+                                }
+                                mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(remsongpos));
+                                mediaPlayer.prepare();
+                                mediaPlayer.start();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        break;
+                    case -99:
+                        break;
+                    default:
+                        try {
+                            if(mediaPlayer.isPlaying()&& bool_IfPlayNewSong)
+                                mediaPlayer.stop();
+                            mediaPlayer=new MediaPlayer();
+                            mediaPlayer.setDataSource(arrayList_inservice_songsdate.get(remsongpos));
+                            mediaPlayer.prepare();
+                            mediaPlayer.start();
+                            bool_IfMediaPlayerIsPause=false;
+                            bool_ifStartPlayMusic =true;
+                            bool_IfMediaPlayerIsNew =true;
+
+                            switch (int_PlayMode)
+                            {
+                                case 1:
                            /* if(!isIfMediaPlayerIsPause&&!mediaPlayer.isPlaying())
                             {
                                 mediaPlayer=new MediaPlayer();
@@ -195,20 +207,26 @@ public class service_contorlmusicplay extends Service {
                                 isIfMediaPlayerIsPause=false;
                             }*/
 //                           切换播放模式，目前还没有实现
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            mediaPlayer.setLooping(true);
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    mediaPlayer.setLooping(true);
 //                            单曲循环
-                            break;
-                        case 4:
-                            break;
-                    }
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-           break;
-        }
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+                ///////////////////////
+            }
+        });
+
+        thread.start();
+
     }
 }
