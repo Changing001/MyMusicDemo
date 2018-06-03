@@ -220,8 +220,6 @@ public class activity_mylikesongs extends AppCompatActivity {
                                   db = myDBHelper.getWritableDatabase(); //参数依次是表名，以及where条件与约束
                                   db.delete("person", "name = ?",
                                           new String[]{str});
-
-
                                   sb = new StringBuilder();
                                   Cursor cursor = db.query("person", null, null,
                                           null, null, null, null);

@@ -67,6 +67,15 @@ public class fragement_mainview extends Fragment {
                 startActivity(intent);
             }
         });
+
+        spebtn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent=new Intent(container.getContext(),activity_morethings.class);
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);//设置跳转不保存上一个activity
+                startActivity(intent);
+            }
+        });
         myself_two_inmainview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hp.mymusicdemo">
 
-
-    <!--允许读写文件-->
+    <!-- 允许读写文件 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<!--允许发送广播-->
+    <!-- 允许发送广播 -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,27 +23,23 @@
         </activity>
         <activity android:name=".activity_mylikesongs" />
         <activity android:name=".activity_mysongs_havedownload" />
-        <activity android:name=".activity_controlmusicplay">
-
-        </activity>
+        <activity android:name=".activity_controlmusicplay" />
 
         <service
             android:name=".service_contorlmusicplay"
             android:enabled="true"
-            android:exported="true">
-        </service>
-
+            android:exported="true" />
 
         <receiver android:name=".class_songsmessage_receiver">
-            <intent-filter >
-                <action android:name="myReceiver">
-
-                </action>
+            <intent-filter>
+                <action android:name="myReceiver" />
             </intent-filter>
         </receiver>
-        <!--权限机制，需要手动设置,别搞忘了-->
+        <!-- 权限机制，需要手动设置,别搞忘了 -->
 
-
+        <activity android:name=".activity_morethings" />
+        <activity android:name=".activity_dont_step_white" />
+        <activity android:name=".activity_game_likeeatsnake"></activity>
     </application>
 
 </manifest>
